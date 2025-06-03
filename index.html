@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burkina Stay - Louez et découvrez le Burkina Faso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e74c3c;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo::before {
+            content: "🏡";
+            margin-right: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #e74c3c;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        /* Main Content */
+        .main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Search Bar */
+        .search-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        /* Property Grid */
+        .properties-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #333;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .property-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: white;
+            cursor: pointer;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ddd, #eee);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .property-content {
+            padding: 1.5rem;
+        }
+
+        .property-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .property-location {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .property-location::before {
+            content: "📍";
+            margin-right: 0.5rem;
+        }
+
+        .property-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        /* Auth Forms */
+        .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .auth-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .auth-form .btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+        }
+
+        /* User Dashboard */
+        .dashboard {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .dashboard-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .dashboard-tab {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .dashboard-tab.active {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .dashboard-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 3rem 0 1rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3.footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #e74c3c;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-section h3.footer-title::before {
+            content: "🏡";
+            margin-right: 0.5rem;
+        }
+
+        .footer-section h4.footer-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #ecf0f1;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .footer-description {
+            line-height: 1.6;
+            color: #bdc3c7;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: #e74c3c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a:hover {
+            color: #e74c3c;
+            padding-left: 0.5rem;
+        }
+
+        .footer-links a::before {
+            content: "▶";
+            font-size: 0.7rem;
+            margin-right: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #bdc3c7;
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+            width: 25px;
+            text-align: center;
+        }
+
+        .contact-item a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: #e74c3c;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-bottom-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #e74c3c;
+        }
+
+        /* Mobile Footer Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        .reservation-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reservation-info h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .reservation-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">Burkina Stay</div>
+                <div class="nav-menu" id="navMenu">
+                    <a href="#" class="nav-link" onclick="showHome()">Accueil</a>
+                    <a href="#" class="nav-link" onclick="showAddProperty()">Ajouter un bien</a>
+                    <a href="#" class="nav-link" onclick="showDashboard()">Mon compte</a>
+                    <button class="btn btn-secondary" onclick="showLoginModal()">Connexion</button>
+                    <button class="btn btn-primary" onclick="showRegisterModal()">S'inscrire</button>
+                </div>
+                <div class="user-menu" id="userMenu" style="display: none;">
+                    <span id="userName">Utilisateur</span>
+                    <button class="btn btn-secondary" onclick="logout()">Déconnexion</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Home Section -->
+            <div id="homeSection">
+                <!-- Hero Section -->
+                <section class="hero">
+                    <h1>Découvrez le Burkina Faso autrement</h1>
+                    <p>Trouvez des logements uniques chez l'habitant dans tout le pays des Hommes intègres</p>
+                </section>
+
+                <!-- Search Section -->
+                <section class="search-section">
+                    <form class="search-form" onsubmit="searchProperties(event)">
+                        <div class="form-group">
+                            <label for="destination">Destination</label>
+                            <select id="destination" required>
+                                <option value="">Choisir une ville</option>
+                                <option value="ouagadougou">Ouagadougou</option>
+                                <option value="bobo-dioulasso">Bobo-Dioulasso</option>
+                                <option value="koudougou">Koudougou</option>
+                                <option value="ouahigouya">Ouahigouya</option>
+                                <option value="banfora">Banfora</option>
+                                <option value="tenkodogo">Tenkodogo</option>
+                                <option value="kaya">Kaya</option>
+                                <option value="dori">Dori</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkin">Arrivée</label>
+                            <input type="date" id="checkin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout">Départ</label>
+                            <input type="date" id="checkout" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </form>
+                </section>
+
+                <!-- Properties Section -->
+                <section class="properties-section">
+                    <h2 class="section-title">Logements populaires</h2>
+                    <div class="properties-grid" id="propertiesGrid">
+                        <!-- Properties will be loaded here -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboardSection" class="dashboard">
+                <h2 class="section-title">Mon tableau de bord</h2>
+                <div class="dashboard-nav">
+                    <button class="dashboard-tab active" onclick="showDashboardTab('reservations')">Mes réservations</button>
+                    <button class="dashboard-tab" onclick="showDashboardTab('properties')">Mes biens</button>
+                    <button class="dashboard-tab" onclick="showDashboardTab('profile')">Mon profil</button>
+                </div>
+                <div class="dashboard-content" id="dashboardContent">
+                    <!-- Dashboard content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Burkina Stay</h3>
+                    <p class="footer-description">
+                        Votre plateforme de confiance pour découvrir le Burkina Faso autrement. 
+                        Des logements authentiques chez l'habitant dans tout le pays des Hommes intègres.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Facebook">📘</a>
+                        <a href="#" class="social-link" title="Instagram">📷</a>
+                        <a href="#" class="social-link" title="Twitter">🐦</a>
+                        <a href="#" class="social-link" title="WhatsApp">💬</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Destinations populaires</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="searchByCity('ouagadougou')">Ouagadougou</a></li>
+                        <li><a href="#" onclick="searchByCity('bobo-dioulasso')">Bobo-Dioulasso</a></li>
+                        <li><a href="#" onclick="searchByCity('koudougou')">Koudougou</a></li>
+                        <li><a href="#" onclick="searchByCity('banfora')">Banfora</a></li>
+                        <li><a href="#" onclick="searchByCity('ouahigouya')">Ouahigouya</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showHome()">Rechercher un logement</a></li>
+                        <li><a href="#" onclick="showAddProperty()">Louer votre bien</a></li>
+                        <li><a href="#" onclick="showHelp()">Centre d'aide</a></li>
+                        <li><a href="#" onclick="showSafety()">Sécurité</a></li>
+                        <li><a href="#" onclick="showTerms()">Conditions d'utilisation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Contact</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <a href="mailto:kettyettaa7@gmail.com">kettyettaa7@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <a href="tel:+22676449087">+226 76 44 90 87</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <span>Ouagadougou, Burkina Faso</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🕒</span>
+                            <span>24h/24 - 7j/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Burkina Stay. Tous droits réservés.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#" onclick="showPrivacy()">Politique de confidentialité</a>
+                        <a href="#" onclick="showTerms()">Mentions légales</a>
+                        <a href="#" onclick="showCookies()">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Connexion</h3>
+                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form" onsubmit="login(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Mot de passe</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                </form>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Pas encore de compte ? <a href="#" onclick="showRegisterModal()">S'inscrire</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Inscription</h3>
+                <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form" onsubmit="register(event)">
+                    <div class="form-group">
+                        <label for="registerName">Nom complet</label>
+                        <input type="text" id="registerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPhone">Téléphone</label>
+                        <input type="tel" id="registerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Mot de passe</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                </form>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Déjà un compte ? <a href="#" onclick="showLoginModal()">Se connecter</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Details Modal -->
+    <div id="propertyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="propertyModalTitle">Détails du logement</h3>
+                <button class="close-btn" onclick="closeModal('propertyModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="propertyModalBody">
+                <!-- Property details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Application state
+        let currentUser = null;
+        let properties = [];
+        let reservations = [];
+        let currentDashboardTab = 'reservations';
+
+        // Sample data
+        const sampleProperties = [
+            {
+                id: 1,
+                title: "Villa moderne avec piscine - Ouagadougou",
+                location: "Zone du Bois, Ouagadougou",
+                price: 45000,
+                currency: "FCFA",
+                bedrooms: 3,
+                bathrooms: 2,
+                guests: 6,
+                image: "🏠",
+                description: "Magnifique villa avec piscine privée dans un quartier calme de Ouagadougou. Idéale pour les familles.",
+                amenities: ["WiFi", "Piscine", "Climatisation", "Parking", "Cuisine équipée"],
+                owner: "Amadou Traoré"
+            },
+            {
+                id: 2,
+                title: "Maison traditionnelle - Bobo-Dioulasso",
+                location: "Centre-ville, Bobo-Dioulasso",
+                price: 25000,
+                currency: "FCFA",
+                bedrooms: 2,
+                bathrooms: 1,
+                guests: 4,
+                image: "🏡",
+                description: "Découvrez l'authenticité burkinabè dans cette charmante maison traditionnelle au cœur de Bobo-Dioulasso.",
+                amenities: ["WiFi", "Ventilateur", "Cuisine", "Terrasse"],
+                owner: "Fatoumata Ouédraogo"
+            },
+            {
+                id: 3,
+                title: "Appartement moderne - Koudougou",
+                location: "Quartier central, Koudougou",
+                price: 20000,
+                currency: "FCFA",
+                bedrooms: 1,
+                bathrooms: 1,
+                guests: 2,
+                image: "🏢",
+                description: "Appartement confortable et bien situé à Koudougou, parfait pour les voyageurs d'affaires.",
+                amenities: ["WiFi", "Climatisation", "Cuisine", "Balcon"],
+                owner: "Ibrahim Sawadogo"
+            }
+        ];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            properties = [...sampleProperties];
+            setMinDates();
+            loadProperties();
+            checkUserSession();
+        });
+
+        // Set minimum dates for check-in and check-out
+        function setMinDates() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkin').min = today;
+            document.getElementById('checkout').min = today;
+            
+            document.getElementById('checkin').addEventListener('change', function() {
+                const checkinDate = new Date(this.value);
+                checkinDate.setDate(checkinDate.getDate() + 1);
+                document.getElementById('checkout').min = checkinDate.toISOString().split('T')[0];
+            });
+        }
+
+        // Load and display properties
+        function loadProperties(filteredProperties = null) {
+            const grid = document.getElementById('propertiesGrid');
+            const propertiesToShow = filteredProperties || properties;
+            
+            grid.innerHTML = propertiesToShow.map(property => `
+                <div class="property-card" onclick="showPropertyDetails(${property.id})">
+                    <div class="property-image">${property.image}</div>
+                    <div class="property-content">
+                        <h3 class="property-title">${property.title}</h3>
+                        <p class="property-location">${property.location}</p>
+                        <div class="property-features">
+                            <span class="feature">🛏️ ${property.bedrooms} chambres</span>
+                            <span class="feature">🚿 ${property.bathrooms} SdB</span>
+                            <span class="feature">👥 ${property.guests} invités</span>
+                        </div>
+                        <div class="property-price">${property.price.toLocaleString()} ${property.currency}/nuit</div>
+                        <button class="btn btn-primary" onclick="event.stopPropagation(); bookProperty(${property.id})">Réserver</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search properties
+        function searchProperties(event) {
+            event.preventDefault();
+            const destination = document.getElementById('destination').value;
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+
+            if (!destination || !checkin || !checkout) {
+                alert('Veuillez remplir tous les champs de recherche');
+                return;
+            }
+
+            const filtered = properties.filter(property => 
+                property.location.toLowerCase().includes(destination.toLowerCase())
+            );
+
+            loadProperties(filtered);
+            
+            if (filtered.length === 0) {
+                document.getElementById('propertiesGrid').innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                        <h3>Aucun logement trouvé</h3>
+                        <p>Essayez avec une autre destination ou d'autres dates.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Show property details
+        function showPropertyDetails(propertyId) {
+            const property = properties.find(p => p.id === propertyId);
+            if (!property) return;
+
+            document.getElementById('propertyModalTitle').textContent = property.title;
+            document.getElementById('propertyModalBody').innerHTML = `
+                <div class="property-image" style="height: 250px; margin-bottom: 1rem;">${property.image}</div>
+                <h4>📍 ${property.location}</h4>
+                <p style="margin: 1rem 0;">${property.description}</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                    <div><strong>🛏️ Chambres:</strong> ${property.bedrooms}</div>
+                    <div><strong>🚿 Salles de bain:</strong> ${property.bathrooms}</div>
+                    <div><strong>👥 Invités max:</strong> ${property.guests}</div>
+                    <div><strong>💰 Prix:</strong> ${property.price.toLocaleString()} FCFA/nuit</div>
+                </div>
+
+                <h4>Équipements disponibles:</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0;">
+                    ${property.amenities.map(amenity => `<span style="background: #f0f0f0; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.9rem;">${amenity}</span>`).join('')}
+                </div>
+
+                <div style="border-top: 1px solid #eee; padding-top: 1rem; margin-top: 1rem;">
+                    <h4>Propriétaire: ${property.owner}</h4>
+                    <button class="btn btn-primary" onclick="bookProperty(${property.id})" style="margin-top: 1rem; width: 100%;">Réserver maintenant</button>
+                </div>
+            `;
+            
+            showModal('propertyModal');
+        }
+
+        // Book property
+        function bookProperty(propertyId) {
+            if (!currentUser) {
+                alert('Veuillez vous connecter pour effectuer une réservation');
+                showLoginModal();
+                return;
+            }
+
+            const property = properties.find(p => p.id === propertyId);
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+
+            if (!checkin || !checkout) {
+                alert('Veuillez sélectionner vos dates de séjour');
+                return;
+            }
+
+            const reservation = {
+                id: Date.now(),
+                propertyId: propertyId,
+                propertyTitle: property.title,
+                checkin: checkin,
+                checkout: checkout,
+                status: 'pending',
+                totalPrice: calculateTotalPrice(property.price, checkin, checkout),
+                guestName: currentUser.name,
+                bookingDate: new Date().toISOString()
+            };
+
+            reservations.push(reservation);
+            saveToStorage('reservations', reservations);
+            
+            alert(`Réservation effectuée avec succès!\nLogement: ${property.title}\nDu ${checkin} au ${checkout}\nTotal: ${reservation.totalPrice.toLocaleString()} FCFA`);
+            closeModal('propertyModal');
+        }
+
+        // Calculate total price
+        function calculateTotalPrice(pricePerNight, checkin, checkout) {
+            const checkinDate = new Date(checkin);
+            const checkoutDate = new Date(checkout);
+            const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
+            const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            return pricePerNight * dayDiff;
+        }
+
+        // Authentication functions
+        function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Simple authentication (in a real app, this would be server-side)
+            const users = getFromStorage('users') || [];
+            const user = users.find(u => u.email === email);
+
+            if (user && user.password === password) {
+                currentUser = user;
+                saveToStorage('currentUser', currentUser);
+                updateUIForLoggedInUser();
+                closeModal('loginModal');
+                alert('Connexion réussie!');
+            } else {
+                alert('Email ou mot de passe incorrect');
+            }
+        }
+
+        function register(event) {
+            event.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const phone = document.getElementById('registerPhone').value;
+            const password = document.getElementById('registerPassword').value;
+
+            const users = getFromStorage('users') || [];
+            
+            if (users.find(u => u.email === email)) {
+                alert('Un compte avec cet email existe déjà');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                phone: phone,
+                password: password,
+                joinDate: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            saveToStorage('users', users);
+            
+            currentUser = newUser;
+            saveToStorage('currentUser', currentUser);
+            updateUIForLoggedInUser();
+            closeModal('registerModal');
+            alert('Inscription réussie! Bienvenue sur Burkina Stay!');
+        }
+
+        function logout() {
+            currentUser = null;
+            removeFromStorage('currentUser');
+            updateUIForLoggedInUser();
+            showHome();
+            alert('Déconnexion réussie');
+        }
+
+        function updateUIForLoggedInUser() {
+            const navMenu = document.getElementById('navMenu');
+            const userMenu = document.getElementById('userMenu');
+            
+            if (currentUser) {
+                navMenu.style.display = 'none';
+                userMenu.style.display = 'flex';
+                document.getElementById('userName').textContent = currentUser.name;
+            } else {
+                navMenu.style.display = 'flex';
+                userMenu.style.display = 'none';
+            }
+        }
+
+        function checkUserSession() {
+            const savedUser = getFromStorage('currentUser');
+            if (savedUser) {
+                currentUser = savedUser;
+                updateUIForLoggedInUser();
+            }
+            // Load user's reservations
+            reservations = getFromStorage('reservations') || [];
+        }
+
+        // Dashboard functions
+        function showDashboard() {
+            if (!currentUser) {
+                alert('Veuillez vous connecter pour accéder à votre tableau de bord');
+                showLoginModal();
+                return;
+            }
+            
+            document.getElementById('homeSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+            showDashboardTab('reservations');
+        }
+
+        function showHome() {
+            document.getElementById('homeSection').style.display = 'block';
+            document.getElementById('dashboardSection').style.display = 'none';
+        }
+
+        function showDashboardTab(tabName) {
+            currentDashboardTab = tabName;
+            
+            // Update tab buttons
+            document.querySelectorAll('.dashboard-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            const content = document.getElementById('dashboardContent');
+            
+            switch(tabName) {
+                case 'reservations':
+                    showReservations(content);
+                    break;
+                case 'properties':
+                    showUserProperties(content);
+                    break;
+                case 'profile':
+                    showUserProfile(content);
+                    break;
+            }
+        }
+
+        function showReservations(container) {
+            const userReservations = reservations.filter(r => r.guestName === currentUser.name);
+            
+            container.innerHTML = `
+                <h3>Mes réservations</h3>
+                ${userReservations.length === 0 ? 
+                    '<p>Vous n\'avez aucune réservation pour le moment.</p>' :
+                    userReservations.map(reservation => `
+                        <div class="reservation-card">
+                            <div class="reservation-info">
+                                <h4>${reservation.propertyTitle}</h4>
+                                <p>Du ${new Date(reservation.checkin).toLocaleDateString('fr-FR')} au ${new Date(reservation.checkout).toLocaleDateString('fr-FR')}</p>
+                                <p>Total: ${reservation.totalPrice.toLocaleString()} FCFA</p>
+                                <p>Réservé le: ${new Date(reservation.bookingDate).toLocaleDateString('fr-FR')}</p>
+                            </div>
+                            <div class="reservation-status ${reservation.status === 'confirmed' ? 'status-confirmed' : 'status-pending'}">
+                                ${reservation.status === 'confirmed' ? 'Confirmée' : 'En attente'}
+                            </div>
+                        </div>
+                    `).join('')
+                }
+            `;
+        }
+
+        function showUserProperties(container) {
+            container.innerHTML = `
+                <h3>Mes biens</h3>
+                <button class="btn btn-primary" onclick="showAddPropertyForm()" style="margin-bottom: 2rem;">Ajouter un nouveau bien</button>
+                <div id="userPropertiesList">
+                    <p>Vous n'avez pas encore ajouté de biens. Cliquez sur "Ajouter un nouveau bien" pour commencer.</p>
+                </div>
+            `;
+        }
+
+        function showUserProfile(container) {
+            container.innerHTML = `
+                <h3>Mon profil</h3>
+                <form class="auth-form" onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label for="profileName">Nom complet</label>
+                        <input type="text" id="profileName" value="${currentUser.name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEmail">Email</label>
+                        <input type="email" id="profileEmail" value="${currentUser.email}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profilePhone">Téléphone</label>
+                        <input type="tel" id="profilePhone" value="${currentUser.phone || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileBio">Biographie</label>
+                        <textarea id="profileBio" rows="4" style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 8px;">${currentUser.bio || ''}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Mettre à jour le profil</button>
+                </form>
+                <div style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                    <h4>Informations du compte</h4>
+                    <p>Membre depuis: ${new Date(currentUser.joinDate).toLocaleDateString('fr-FR')}</p>
+                    <p>Nombre de réservations: ${reservations.filter(r => r.guestName === currentUser.name).length}</p>
+                </div>
+            `;
+        }
+
+        function updateProfile(event) {
+            event.preventDefault();
+            
+            currentUser.name = document.getElementById('profileName').value;
+            currentUser.email = document.getElementById('profileEmail').value;
+            currentUser.phone = document.getElementById('profilePhone').value;
+            currentUser.bio = document.getElementById('profileBio').value;
+            
+            saveToStorage('currentUser', currentUser);
+            
+            // Update users array
+            const users = getFromStorage('users') || [];
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                saveToStorage('users', users);
+            }
+            
+            updateUIForLoggedInUser();
+            alert('Profil mis à jour avec succès!');
+        }
+
+        function showAddProperty() {
+            if (!currentUser) {
+                alert('Veuillez vous connecter pour ajouter un bien');
+                showLoginModal();
+                return;
+            }
+            showAddPropertyForm();
+        }
+
+        function showAddPropertyForm() {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.id = 'addPropertyModal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Ajouter un nouveau bien</h3>
+                        <button class="close-btn" onclick="closeModal('addPropertyModal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="auth-form" onsubmit="addProperty(event)" style="max-width: 500px;">
+                            <div class="form-group">
+                                <label for="propertyTitle">Titre du bien</label>
+                                <input type="text" id="propertyTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyLocation">Localisation</label>
+                                <input type="text" id="propertyLocation" placeholder="Quartier, Ville" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyPrice">Prix par nuit (FCFA)</label>
+                                <input type="number" id="propertyPrice" min="1000" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyBedrooms">Nombre de chambres</label>
+                                <input type="number" id="propertyBedrooms" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyBathrooms">Nombre de salles de bain</label>
+                                <input type="number" id="propertyBathrooms" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyGuests">Nombre d'invités max</label>
+                                <input type="number" id="propertyGuests" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyDescription">Description</label>
+                                <textarea id="propertyDescription" rows="4" required style="width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 8px;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Ajouter le bien</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            showModal('addPropertyModal');
+        }
+
+        function addProperty(event) {
+            event.preventDefault();
+            
+            const newProperty = {
+                id: Date.now(),
+                title: document.getElementById('propertyTitle').value,
+                location: document.getElementById('propertyLocation').value,
+                price: parseInt(document.getElementById('propertyPrice').value),
+                currency: "FCFA",
+                bedrooms: parseInt(document.getElementById('propertyBedrooms').value),
+                bathrooms: parseInt(document.getElementById('propertyBathrooms').value),
+                guests: parseInt(document.getElementById('propertyGuests').value),
+                description: document.getElementById('propertyDescription').value,
+                image: "🏠",
+                amenities: ["WiFi", "Cuisine"],
+                owner: currentUser.name,
+                ownerId: currentUser.id,
+                dateAdded: new Date().toISOString()
+            };
+            
+            properties.push(newProperty);
+            saveToStorage('properties', properties);
+            loadProperties();
+            
+            alert('Bien ajouté avec succès!');
+            closeModal('addPropertyModal');
+            document.getElementById('addPropertyModal').remove();
+        }
+
+        // Modal functions
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function showLoginModal() {
+            closeModal('registerModal');
+            showModal('loginModal');
+        }
+
+        function showRegisterModal() {
+            closeModal('loginModal');
+            showModal('registerModal');
+        }
+
+        // Local storage functions
+        function saveToStorage(key, data) {
+            // Note: Using variables instead of localStorage for Claude.ai compatibility
+            window[key] = JSON.stringify(data);
+        }
+
+        function getFromStorage(key) {
+            try {
+                return JSON.parse(window[key] || 'null');
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function removeFromStorage(key) {
+            delete window[key];
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Mobile menu toggle (placeholder for future implementation)
+        function toggleMobileMenu() {
+            // Mobile menu functionality can be added here
+            console.log('Mobile menu toggled');
+        }
+
+        // Initialize sample data on first load
+        function initializeSampleData() {
+            if (!getFromStorage('properties')) {
+                saveToStorage('properties', sampleProperties);
+            }
+        }
+
+        // Load saved properties from storage
+        function loadSavedProperties() {
+            const savedProperties = getFromStorage('properties');
+            if (savedProperties && savedProperties.length > 0) {
+                properties = savedProperties;
+            }
+        }
+
+        // Enhanced initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSampleData();
+            loadSavedProperties();
+            setMinDates();
+            loadProperties();
+            checkUserSession();
+        });
+
+        // Footer functionality
+        function searchByCity(city) {
+            document.getElementById('destination').value = city;
+            showHome();
+            // Scroll to search section
+            document.querySelector('.search-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showHelp() {
+            showInfoModal('Centre d\'aide', `
+                <h4>Comment ça marche ?</h4>
+                <p><strong>Pour réserver :</strong></p>
+                <ol>
+                    <li>Créez votre compte ou connectez-vous</li>
+                    <li>Recherchez un logement dans votre destination</li>
+                    <li>Sélectionnez vos dates de séjour</li>
+                    <li>Confirmez votre réservation</li>
+                </ol>
+                
+                <p><strong>Pour louer votre bien :</strong></p>
+                <ol>
+                    <li>Connectez-vous à votre compte</li>
+                    <li>Cliquez sur "Ajouter un bien"</li>
+                    <li>Remplissez les informations de votre logement</li>
+                    <li>Votre annonce sera visible immédiatement</li>
+                </ol>
+
+                <h4>Besoin d'aide ?</h4>
+                <p>Contactez-nous à <strong>kettyettaa7@gmail.com</strong> ou au <strong>+226 76 44 90 87</strong></p>
+            `);
+        }
+
+        function showSafety() {
+            showInfoModal('Sécurité et Confiance', `
+                <h4>Votre sécurité est notre priorité</h4>
+                
+                <h5>🛡️ Pour les voyageurs :</h5>
+                <ul>
+                    <li>Vérification des identités des hôtes</li>
+                    <li>Photos authentiques des logements</li>
+                    <li>Système de notation et d'avis</li>
+                    <li>Support client 24h/24</li>
+                </ul>
+
+                <h5>🏠 Pour les hôtes :</h5>
+                <ul>
+                    <li>Vérification des identités des voyageurs</li>
+                    <li>Protection contre les dommages</li>
+                    <li>Paiements sécurisés</li>
+                    <li>Assistance juridique</li>
+                </ul>
+
+                <h5>📞 Urgence :</h5>
+                <p>En cas d'urgence, contactez-nous immédiatement au <strong>+226 76 44 90 87</strong></p>
+            `);
+        }
+
+        function showTerms() {
+            showInfoModal('Conditions d\'utilisation', `
+                <h4>Conditions générales d'utilisation</h4>
+                
+                <h5>1. Acceptation des conditions</h5>
+                <p>En utilisant Burkina Stay, vous acceptez ces conditions d'utilisation.</p>
+
+                <h5>2. Utilisation du service</h5>
+                <p>Notre plateforme permet la mise en relation entre voyageurs et propriétaires au Burkina Faso.</p>
+
+                <h5>3. Responsabilités</h5>
+                <ul>
+                    <li>Les utilisateurs sont responsables de l'exactitude des informations fournies</li>
+                    <li>Burkina Stay facilite les transactions mais n'est pas partie aux contrats</li>
+                    <li>Respectez les biens et les personnes</li>
+                </ul>
+
+                <h5>4. Paiements</h5>
+                <p>Les paiements se font directement entre voyageurs et hôtes.</p>
+
+                <h5>5. Contact</h5>
+                <p>Pour toute question : <strong>kettyettaa7@gmail.com</strong></p>
+            `);
+        }
+
+        function showPrivacy() {
+            showInfoModal('Politique de confidentialité', `
+                <h4>Protection de vos données personnelles</h4>
+                
+                <h5>Collecte d'informations</h5>
+                <p>Nous collectons uniquement les informations nécessaires pour vous fournir nos services :</p>
+                <ul>
+                    <li>Nom et coordonnées</li>
+                    <li>Informations de réservation</li>
+                    <li>Préférences de voyage</li>
+                </ul>
+
+                <h5>Utilisation des données</h5>
+                <p>Vos données sont utilisées pour :</p>
+                <ul>
+                    <li>Faciliter vos réservations</li>
+                    <li>Améliorer nos services</li>
+                    <li>Vous contacter si nécessaire</li>
+                </ul>
+
+                <h5>Protection</h5>
+                <p>Nous protégeons vos données avec les meilleures pratiques de sécurité.</p>
+
+                <h5>Contact</h5>
+                <p>Questions sur vos données : <strong>kettyettaa7@gmail.com</strong></p>
+            `);
+        }
+
+        function showCookies() {
+            showInfoModal('Politique de cookies', `
+                <h4>Utilisation des cookies</h4>
+                
+                <p>Burkina Stay utilise des cookies pour améliorer votre expérience :</p>
+
+                <h5>Types de cookies :</h5>
+                <ul>
+                    <li><strong>Essentiels :</strong> Nécessaires au fonctionnement du site</li>
+                    <li><strong>Préférences :</strong> Mémorisent vos choix</li>
+                    <li><strong>Analytiques :</strong> Nous aident à améliorer le site</li>
+                </ul>
+
+                <h5>Gestion des cookies</h5>
+                <p>Vous pouvez contrôler les cookies dans les paramètres de votre navigateur.</p>
+
+                <h5>Contact</h5>
+                <p>Questions : <strong>kettyettaa7@gmail.com</strong></p>
+            `);
+        }
+
+        function showInfoModal(title, content) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.id = 'infoModal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>${title}</h3>
+                        <button class="close-btn" onclick="closeInfoModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        ${content}
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button class="btn btn-primary" onclick="closeInfoModal()">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            showModal('infoModal');
+        }
+
+        function closeInfoModal() {
+            const modal = document.getElementById('infoModal');
+            if (modal) {
+                closeModal('infoModal');
+                setTimeout(() => modal.remove(), 300);
+            }
+        }
+    </script>
+</body>
+</html>
